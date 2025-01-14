@@ -1,7 +1,14 @@
 import React from "react";
 import "./login.css";
 import logo from "../../assets/goquestLogo.png";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    navigate("/home");
+  };
   return (
     <div className="login-container">
       <div className="left-panel">
@@ -19,12 +26,16 @@ const Register = () => {
             placeholder="Password"
             className="input-field"
           />
-          <button className="login-button">Register</button>
+          <button className="login-button" onClick={handleLogin}>
+            Register
+          </button>
         </form>
         <div className="helper-text">
           <a href="#">Forgot Password?</a>
           <br />
-          <a href="#">Already have an account? LogIn</a>
+          <a onClick={() => navigate("/login")} href="#!">
+            Already have an account? LogIn
+          </a>
         </div>
       </div>
     </div>
