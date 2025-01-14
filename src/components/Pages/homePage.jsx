@@ -1,6 +1,8 @@
 import React from 'react';
 import WeatherCard from '../weather/weatherCard';
 import styles from './homePageStyles';
+import { getFormattedWeatherData } from '../utils/weatherApi';
+import Map from '../map/Map';
 
 const HomePage = () => {
 
@@ -12,6 +14,7 @@ const HomePage = () => {
     { title: 'Cycling Route', location: 'City Trail', difficulty: 'Moderate' },
   ];
 
+
   return (
     <div style={styles.container}>
       <div style={styles.topSection}>
@@ -20,7 +23,7 @@ const HomePage = () => {
         <div style={styles.mapSection}>
           <h2 style={styles.sectionTitle}>Map</h2>
           <div style={styles.mapPlaceholder}>
-            Map Component Goes Here
+            <Map/>
           </div>
         </div>
 
@@ -44,6 +47,7 @@ const HomePage = () => {
               <p style={{ color: '#666' }}>Difficulty: {activity.difficulty}</p>
             </div>
           ))}
+          
         </div>
       </div>
     </div>
