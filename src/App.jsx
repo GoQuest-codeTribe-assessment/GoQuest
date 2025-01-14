@@ -4,7 +4,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Navbar from "./components/nav/Nav";
 import HomePage from "./components/Pages/homePage";
-import { BrowserRouter as Router, Route, Routes, Navigate,useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom";
 
 function App() {
   return (

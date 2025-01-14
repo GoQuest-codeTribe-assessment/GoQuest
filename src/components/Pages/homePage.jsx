@@ -3,7 +3,7 @@ import WeatherCard from "../weather/weatherCard";
 import styles from "./homePageStyles";
 import { getFormattedWeatherData } from "../utils/weatherApi";
 import Map from "../map/Map";
-import Navbar from "../nav/Nav";
+import cosy from "../../assets/cosy.jpg"
 
 const HomePage = () => {
   //   Mock Data
@@ -12,15 +12,31 @@ const HomePage = () => {
       title: "Hiking Trail",
       location: "Mountain View Park",
       difficulty: "Moderate",
+      image: cosy,
     },
-    { title: "Beach Volleyball", location: "Sunny Beach", difficulty: "Easy" },
-    { title: "Rock Climbing", location: "Adventure Gym", difficulty: "Hard" },
-    { title: "Cycling Route", location: "City Trail", difficulty: "Moderate" },
+    {
+      title: "Beach Volleyball",
+      location: "Sunny Beach",
+      difficulty: "Easy",
+      image: cosy ,
+    },
+    {
+      title: "Rock Climbing",
+      location: "Adventure Gym",
+      difficulty: "Hard",
+      image: cosy ,
+    },
+    {
+      title: "Cycling Route",
+      location: "City Trail",
+      difficulty: "Moderate",
+      image: cosy ,
+    },
   ];
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div style={styles.container}>
         <div style={styles.topSection}>
           {/* Map Section */}
@@ -45,12 +61,24 @@ const HomePage = () => {
           <h2 style={styles.sectionTitle}>Activities</h2>
           <div style={styles.activitiesGrid}>
             {activities.map((activity, index) => (
-              <div key={index} style={styles.activityCard}>
-                <h3 style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+              <div
+                key={index}
+                style={{
+                  ...styles.activityCard,
+                  backgroundImage: `url(${activity.image})`,
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                    color: "white",
+                  }}
+                >
                   {activity.title}
                 </h3>
-                <p style={{ color: "#666" }}>Location: {activity.location}</p>
-                <p style={{ color: "#666" }}>
+                <p style={{ color: "white" }}>Location: {activity.location}</p>
+                <p style={{ color: "white" }}>
                   Difficulty: {activity.difficulty}
                 </p>
               </div>
