@@ -1,0 +1,13 @@
+.mapContainer {
+  text-align: center;
+  background-color: aqua;
+  width: 60%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .mapContainer {
+    width: 100%;
+    height: 80vh;
+  }
+}
