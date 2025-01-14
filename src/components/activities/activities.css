@@ -1,0 +1,14 @@
+.activitiesContainer {
+  width: 60%;
+  height: 25vh;
+  background-color: cadetblue;
+  text-align: center;
+  margin-right: 20px;
+}
+
+@media (max-width: 768px) {
+    .activitiesContainer {
+      width: 100%;
+      height: 35vh;
+    }
+  }
