@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Search, Droplets, Wind, Thermometer, Sun, Cloud } from 'lucide-react';
 import styles from './weatherCardStyles';
+import Map from '../map/Map';
 
 
 const WeatherCard = () => {
@@ -10,6 +11,9 @@ const WeatherCard = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState([]);
   const [error, setError] = useState(null);
+  const [map] = useState(false);
+  const [lat, setLat] = useState(null);
+  const [lon,setLon] = useState(null)
 
   // Fetch weather data when the search query changes
 // importing api calls from weatherApi.jsx game me problems hence i resorted to a useEffect
@@ -30,6 +34,8 @@ const WeatherCard = () => {
         }
 
         const { lat, lon } = geoData.coord; // Get latitude and longitude for the city
+        setLat(lat);
+        setLon(lon);
 
         const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d7c757ee7b3a22b8f08a5822bcc1a414&units=${units}`;
         const forecastResponse = await fetch(forecastURL);
@@ -68,7 +74,7 @@ const WeatherCard = () => {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-  
+
 
   return (
     <div style={styles.container}>
@@ -133,7 +139,9 @@ const WeatherCard = () => {
           ))}
         </div>
       )}
+      {lat && lon && <Map lat={lat} lon={lon} />}
     </div>
+    
   );
 };
 

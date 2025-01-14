@@ -12,7 +12,8 @@ function App() {
       {/* Routes for page navigation */}
       <Router>
         {/* Navbar to be consistent across all pages */}
-
+      <Router>      
+        <Navbar/>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
