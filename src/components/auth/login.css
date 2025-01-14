@@ -1,0 +1,88 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+}
+
+.left-panel {
+  flex: 1;
+  background-image: url("../../assets/goquestBG.jpg");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.right-panel {
+  flex: 1;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.input-field {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #d9d9d9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #74b49b;
+}
+
+.login-button {
+  padding: 10px;
+  font-size: 1rem;
+  color: white;
+  background-color: #74b49b;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #5a956f;
+}
+
+.helper-text {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.helper-text a {
+  text-decoration: none;
+  color: black;
+}
+
+.helper-text a:hover {
+  text-decoration: underline;
+}
