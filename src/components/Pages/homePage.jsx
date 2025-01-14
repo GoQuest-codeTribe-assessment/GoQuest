@@ -1,6 +1,7 @@
 import React from 'react';
 import WeatherCard from '../weather/weatherCard';
 import styles from './homePageStyles';
+import { getFormattedWeatherData } from '../utils/weatherApi';
 
 const HomePage = () => {
 
@@ -11,6 +12,7 @@ const HomePage = () => {
     { title: 'Rock Climbing', location: 'Adventure Gym', difficulty: 'Hard' },
     { title: 'Cycling Route', location: 'City Trail', difficulty: 'Moderate' },
   ];
+
 
   return (
     <div style={styles.container}>
@@ -44,6 +46,7 @@ const HomePage = () => {
               <p style={{ color: '#666' }}>Difficulty: {activity.difficulty}</p>
             </div>
           ))}
+          
         </div>
       </div>
     </div>
