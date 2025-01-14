@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Search, Droplets, Wind, Thermometer, Sun, Cloud } from 'lucide-react';
 import styles from './weatherCardStyles';
-import { getFormattedWeatherData } from '../utils/weatherApi';
+
 
 const WeatherCard = () => {
+
+    // States
   const [searchQuery, setSearchQuery] = useState('');
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState([]);
   const [error, setError] = useState(null);
 
   // Fetch weather data when the search query changes
+// importing api calls from weatherApi.jsx game me problems hence i resorted to a useEffect
+
   useEffect(() => {
     const fetchWeatherData = async () => {
-      if (!searchQuery) return; // Do not fetch if search query is empty
+      if (!searchQuery) return; 
 
       try {
-        const units = "metric"; // Use metric for temperature in Celsius
+        const units = "metric"; 
         const geocodeURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchQuery}&appid=d7c757ee7b3a22b8f08a5822bcc1a414&units=${units}`;
         const geoResponse = await fetch(geocodeURL);
         const geoData = await geoResponse.json();
@@ -39,7 +43,7 @@ const WeatherCard = () => {
         });
 
         // Extract 5-day forecast data
-        const fiveDayForecast = forecastData.list.filter((_, index) => index % 8 === 0) // Every 8th entry corresponds to a daily forecast
+        const fiveDayForecast = forecastData.list.filter((_, index) => index % 8 === 0) 
           .map(item => ({
             date: new Date(item.dt * 1000).toLocaleDateString(),
             description: item.weather[0].description,
@@ -59,10 +63,12 @@ const WeatherCard = () => {
     fetchWeatherData();
   }, [searchQuery]); // Re-fetch data when the search query changes
 
+
   // Handle search input change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
+  
 
   return (
     <div style={styles.container}>
@@ -84,6 +90,7 @@ const WeatherCard = () => {
       {/* Current Weather Grid */}
       {weatherData && (
         <div style={styles.currentWeatherGrid}>
+
           {/* Weather Condition */}
           <div style={styles.weatherTile}>
             <Sun size={24} style={styles.tileIcon} />

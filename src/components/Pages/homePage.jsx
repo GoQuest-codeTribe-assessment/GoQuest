@@ -2,6 +2,7 @@ import React from 'react';
 import WeatherCard from '../weather/weatherCard';
 import styles from './homePageStyles';
 import { getFormattedWeatherData } from '../utils/weatherApi';
+import Map from '../map/Map';
 
 const HomePage = () => {
 
@@ -22,7 +23,7 @@ const HomePage = () => {
         <div style={styles.mapSection}>
           <h2 style={styles.sectionTitle}>Map</h2>
           <div style={styles.mapPlaceholder}>
-            Map Component Goes Here
+            <Map/>
           </div>
         </div>
 
