@@ -1,21 +1,27 @@
 import { useState } from "react";
 import "./App.css";
-import Nav from "./components/nav/Nav";
-import Map from "./components/map/Map";
-import Weather from "./components/weather/Weather";
-import Activities from "./components/activities/Activities";
+import Navbar from "./components/nav/Nav";
+import HomePage from "./components/Pages/homePage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
     <>
-      <Nav />
-      <div className="homeContainer gutter">
-        <Map />
-        <Weather />
-      </div>
-      <Activities />
+      {/* Routes for page navigation */}
+      <Router>
+        
+        {/* Navbar to be consistent across all pages */}
+        <Navbar/>
+
+        <Routes>
+          <Route path="/" element={<HomePage/>}/>
+        </Routes>
+
+      </Router>
+   
+        
+
     </>
   );
 }
