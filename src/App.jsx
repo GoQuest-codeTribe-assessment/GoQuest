@@ -9,19 +9,13 @@ function App() {
   return (
     <>
       {/* Routes for page navigation */}
-      <Router>
-        
+      <Router>      
         {/* Navbar to be consistent across all pages */}
         <Navbar/>
-
         <Routes>
           <Route path="/" element={<HomePage/>}/>
         </Routes>
-
       </Router>
-   
-        
-
     </>
   );
 }

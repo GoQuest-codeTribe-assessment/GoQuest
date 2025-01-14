@@ -1,20 +1,48 @@
 import React from "react";
+import "leaflet/dist/leaflet.css";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
-const Map = () => {
+const Map = ({ lat, lon }) => {
+  console.log(lat, lon);
+
+  // Set default values if lat and lon are not provided
+  const defaultLat = 48.8566;
+  const defaultLon = 2.3522;
+
+  // Use provided lat/lon or default values
+  const currentLat = lat || defaultLat;
+  const currentLon = lon || defaultLon;
+
+  // Dynamically create markers using lat and lon props or default values
+  const markers = [
+    {
+      geocode: [currentLat, currentLon], // Use the provided or default lat/lon
+      popUp: "Hello, I am a pop up",
+    },
+    {
+      geocode: [48.85, 2.3522],
+      popUp: "Hello, I am a Pop up 2",
+    },
+  ];
+
   return (
-    <div style={{ width: '100%', height: '100%' }}>
-      <iframe
-        title="Google Maps"
-        width="100%"
-        height="100%"
-        frameBorder="0"
-        style={{ border: 0 }}
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14374.652174096427!2d28.2686481!3d-25.7486544!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9560451d408f9d%3A0xb180e978338dcefd!2smLab%20Southern%20Africa!5e0!3m2!1sen!2sza!4v1725365316739!5m2!1sen!2sza"
-        allowFullScreen
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-      ></iframe>
-    </div>
+    <MapContainer
+      center={[currentLat, currentLon]} // Center the map on the dynamic coordinates
+      zoom={13}
+      style={{ height: "100%", width: "100%" }} // You can adjust the height and width here
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {
+        markers.map((marker, index) => (
+          <Marker key={index} position={marker.geocode}>
+            <Popup>{marker.popUp}</Popup>
+          </Marker>
+        ))
+      }
+    </MapContainer>
   );
 };
 
