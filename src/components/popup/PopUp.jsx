@@ -1,14 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import "./popUp.css";
 import { ImCross } from "react-icons/im";
 import styles from "../weather/weatherCardStyles";
 import styles2 from "../Pages/homePageStyles";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../Firebase/firebaseApi";
+import { getAuth } from "firebase/auth";
 
 import { Search, Droplets, Wind, Thermometer, Sun, Cloud } from "lucide-react";
 
 function PopUp({ setPopUp, weatherData, popedUpActivity }) {
+  const [loading, setLoading] = useState(false);
 
-    
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  const addToFav = async () => {
+    setLoading(true);
+
+    if (user && popedUpActivity) {
+      const favourite = {
+        userId: user.uid,
+        activityId: popedUpActivity.id,
+        timestamp: new Date(),
+        ...popedUpActivity,
+        ...weatherData,
+      };
+
+      try {
+        await setDoc(doc(db, "favorites", `${user.uid}_${popedUpActivity.id}`), favourite);
+        alert("You have successfully added this activity to your favorites!");
+        setLoading(false);
+        setPopUp(false);
+      } catch (error) {
+        alert("Error adding to favorites:", error);
+        setLoading(false);
+        setPopUp(false);
+      }
+    } else {
+      alert("User not authenticated, room ID, or room details missing");
+      setLoading(false);
+      setPopUp(false);
+    }
+  };
+
   return (
     <div className="overlay">
       <div className="modal" onClick={() => setPopUp(false)}></div>
@@ -92,15 +127,20 @@ function PopUp({ setPopUp, weatherData, popedUpActivity }) {
               <p>
                 <strong>Preferred temps for this activity</strong>
               </p>
-              {popedUpActivity.temperatureMin}°C -{" "}
+              {popedUpActivity.temperatureMin}°C -
               {popedUpActivity.temperatureMax}°C
             </div>
           </div>
         </div>
 
         <ImCross className="closeModal" onClick={() => setPopUp(false)} />
-        {/* <button className="closeModal" onClick={()=>deactivateSignInModal()}>Close</button> */}
+        <button onClick={addToFav}>Like this activity</button>
       </div>
+      {loading && (
+        <div className="loader-cont">
+          <div className="loader"></div>
+        </div>
+      )}
     </div>
   );
 }
