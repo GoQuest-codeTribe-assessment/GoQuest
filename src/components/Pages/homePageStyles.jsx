@@ -84,6 +84,30 @@ const styles = {
       display: 'flex',
       flexDirection: 'column',
       gap: '10px',
+      cursor: 'pointer',
+      transition: 'transform 0.2s ease',
+      position: 'relative',
+      overflow: 'hidden',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6))',
+        pointerEvents: 'none',
+      },
+      '&:hover': {
+        transform: 'scale(1.02)',
+      },
+      '& *': {
+        position: 'relative',
+        zIndex: 1,
+        color: 'white',
+      }
     },
 
     // Media query for responsive design

@@ -1,29 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { Search, Droplets, Wind, Thermometer, Sun, Cloud } from 'lucide-react';
-import styles from './weatherCardStyles';
-import Map from '../map/Map';
+import React, { useEffect, useState } from "react";
+import { Search, Droplets, Wind, Thermometer, Sun, Cloud } from "lucide-react";
+import styles from "./weatherCardStyles";
 
-
-const WeatherCard = () => {
-
-    // States
-  const [searchQuery, setSearchQuery] = useState('');
-  const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState([]);
+const WeatherCard = ({
+  setLat,
+  setLon,
+  setForecastData,
+  setWeatherData,
+  weatherData,
+  forecastData
+}) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  // const [weatherData, setWeatherData] = useState(null);
+  // const [forecastData, setForecastData] = useState([]);
   const [error, setError] = useState(null);
   const [map] = useState(false);
-  const [lat, setLat] = useState(null);
-  const [lon,setLon] = useState(null)
 
+  console.log(searchQuery)
   // Fetch weather data when the search query changes
-// importing api calls from weatherApi.jsx game me problems hence i resorted to a useEffect
+  // importing api calls from weatherApi.jsx game me problems hence i resorted to a useEffect
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      if (!searchQuery) return; 
+      if (!searchQuery) return;
 
       try {
-        const units = "metric"; 
+        const units = "metric";
         const geocodeURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchQuery}&appid=d7c757ee7b3a22b8f08a5822bcc1a414&units=${units}`;
         const geoResponse = await fetch(geocodeURL);
         const geoData = await geoResponse.json();
@@ -40,17 +42,19 @@ const WeatherCard = () => {
         const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d7c757ee7b3a22b8f08a5822bcc1a414&units=${units}`;
         const forecastResponse = await fetch(forecastURL);
         const forecastData = await forecastResponse.json();
-
+        console.log("This is my data",forecastData);
         setWeatherData({
-          condition: forecastData.list[0].weather[0].description,
+          condition: forecastData.list[0].weather[0].main,
           humidity: `${forecastData.list[0].main.humidity}%`,
           windSpeed: `${forecastData.list[0].wind.speed} m/s`,
           temperature: `${forecastData.list[0].main.temp}°C`,
+          city: `${forecastData.city.name}`
         });
-
+        
         // Extract 5-day forecast data
-        const fiveDayForecast = forecastData.list.filter((_, index) => index % 8 === 0) 
-          .map(item => ({
+        const fiveDayForecast = forecastData.list
+          .filter((_, index) => index % 8 === 0)
+          .map((item) => ({
             date: new Date(item.dt * 1000).toLocaleDateString(),
             description: item.weather[0].description,
             icon: item.weather[0].icon,
@@ -69,12 +73,10 @@ const WeatherCard = () => {
     fetchWeatherData();
   }, [searchQuery]); // Re-fetch data when the search query changes
 
-
   // Handle search input change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-
 
   return (
     <div style={styles.container}>
@@ -96,7 +98,6 @@ const WeatherCard = () => {
       {/* Current Weather Grid */}
       {weatherData && (
         <div style={styles.currentWeatherGrid}>
-
           {/* Weather Condition */}
           <div style={styles.weatherTile}>
             <Sun size={24} style={styles.tileIcon} />
@@ -133,17 +134,21 @@ const WeatherCard = () => {
           {forecastData.map((day, index) => (
             <div key={index} style={styles.forecastTile}>
               <span style={styles.dayLabel}>{day.date}</span>
-              <div style={styles.weatherIcon}><img src={`http://openweathermap.org/img/wn/${day.icon}.png`} alt={day.description} /></div>
-              <span style={styles.temperature}>{`${day.temp_min}°C - ${day.temp_max}°C`}</span>
+              <div style={styles.weatherIcon}>
+                <img
+                  src={`http://openweathermap.org/img/wn/${day.icon}.png`}
+                  alt={day.description}
+                />
+              </div>
+              <span
+                style={styles.temperature}
+              >{`${day.temp_min}°C - ${day.temp_max}°C`}</span>
             </div>
           ))}
         </div>
       )}
-      {lat && lon && <Map lat={lat} lon={lon} />}
     </div>
-    
   );
 };
 
 export default WeatherCard;
-
