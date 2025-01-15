@@ -3,13 +3,25 @@ import WeatherCard from "../weather/weatherCard";
 import styles from "./homePageStyles";
 import { getFormattedWeatherData } from "../utils/weatherApi";
 import Map from "../map/Map";
-import cosy from "../../assets/cosy.jpg";
+import hiking from "../../assets/hiking.jpg";
+import museum from "../../assets/museum.jpg";
+import cycling from "../../assets/cycling.jpg";
+import beach from "../../assets/beach.jpg";
+import cooking from "../../assets/cooking.jpg";
+import yoga from "../../assets/yoga.jpg";
+import snow from "../../assets/snow.jpg";
+import walking from "../../assets/walking.jpg";
+import rock from "../../assets/rock.jpg";
+import kayaking from "../../assets/kayaking.jpg";
+import PopUp from "../popup/PopUp";
 
 const HomePage = () => {
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
   const [forecastData, setForecastData] = useState([]);
   const [weatherData, setWeatherData] = useState(null);
+  const [popedUpActivity, setpopedUpActivity] = useState(null);
+  const [popup, setpopup] = useState(false);
 
   console.log("Name of the location", weatherData?.city || "No city data available");
 
@@ -20,25 +32,24 @@ const HomePage = () => {
       name: "Hiking in the Mountains",
       description: "Explore scenic trails and enjoy breathtaking views.",
       locationType: "Outdoor",
-      weatherTags: ["sunny", "cloudy", "clear"],
+      weatherTags: ["sunny", "clouds", "clear"],
       temperatureMin: 15,
       temperatureMax: 30,
       recommendation: "Bring plenty of water and sunscreen.",
       region: "Any mountainous area",
-      imageUrl: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
+      imageUrl: hiking,
     },
     {
       id: 2,
       name: "Museum Visit",
       description: "Discover art, history, and culture indoors.",
       locationType: "Indoor",
-      weatherTags: ["rainy", "stormy"],
+      weatherTags: ["rain", "stormy", "clear"],
       temperatureMin: null,
       temperatureMax: null,
       recommendation: "Check opening hours before visiting.",
       region: "Urban areas",
-      imageUrl:
-        "https://unsplash.com/photos/white-and-blue-building-during-daytime-OHmKXLnnfpg",
+      imageUrl: museum,
     },
     {
       id: 3,
@@ -50,31 +61,31 @@ const HomePage = () => {
       temperatureMax: 40,
       recommendation: "Don’t forget a hat, sunglasses, and sunscreen.",
       region: "Coastal regions",
-      imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+      imageUrl: beach,
     },
     {
       id: 4,
       name: "Cycling",
       description: "Ride through parks, trails, or city streets.",
       locationType: "Outdoor",
-      weatherTags: ["sunny", "partly cloudy", "breezy", "clear"],
+      weatherTags: ["sunny", "clouds", "breezy", "clear"],
       temperatureMin: 10,
       temperatureMax: 25,
       recommendation: "Wear a helmet and check your bike beforehand.",
       region: "Suburban or urban areas",
-      imageUrl: "https://images.unsplash.com/photo-1516466723873-2d87971c0218",
+      imageUrl: cycling,
     },
     {
       id: 5,
       name: "Cooking Class",
       description: "Learn to cook local or international cuisines.",
       locationType: "Indoor",
-      weatherTags: ["rainy", "cold", "snowy"],
+      weatherTags: ["rain", "cold", "snow"],
       temperatureMin: null,
       temperatureMax: null,
       recommendation: "Book a class in advance.",
       region: "Urban areas or resorts",
-      imageUrl: "https://images.unsplash.com/photo-1601050692452-e759bbf90f9e",
+      imageUrl: cooking,
     },
     {
       id: 6,
@@ -86,7 +97,7 @@ const HomePage = () => {
       temperatureMax: 5,
       recommendation: "Wear warm clothing and bring your gear.",
       region: "Mountain resorts",
-      imageUrl: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+      imageUrl: snow,
     },
     {
       id: 7,
@@ -99,19 +110,19 @@ const HomePage = () => {
       recommendation:
         "Choose a retreat that fits your schedule and skill level.",
       region: "Resorts or wellness centers",
-      imageUrl: "https://images.unsplash.com/photo-1578894380662-48c6fd282c4f",
+      imageUrl: yoga,
     },
     {
       id: 8,
       name: "City Walking Tour",
       description: "Explore landmarks and hidden gems on foot.",
       locationType: "Outdoor",
-      weatherTags: ["sunny", "partly cloudy", "clear"],
+      weatherTags: ["sunny", "clouds", "clear"],
       temperatureMin: 10,
       temperatureMax: 25,
       recommendation: "Wear comfortable walking shoes.",
       region: "Urban areas",
-      imageUrl: "https://images.unsplash.com/photo-1484863137850-59afcfe05386",
+      imageUrl: walking,
     },
     {
       id: 9,
@@ -119,12 +130,12 @@ const HomePage = () => {
       description:
         "Challenge yourself with climbing walls of varying difficulty.",
       locationType: "Indoor",
-      weatherTags: ["rainy", "stormy", "cold"],
+      weatherTags: ["rain", "stormy", "cold", "clear"],
       temperatureMin: null,
       temperatureMax: null,
       recommendation: "Check safety guidelines and wear appropriate gear.",
       region: "Urban areas",
-      imageUrl: "https://images.unsplash.com/photo-1579928735247-9f8c9c35c6f9",
+      imageUrl: rock,
     },
     {
       id: 10,
@@ -136,7 +147,7 @@ const HomePage = () => {
       temperatureMax: 35,
       recommendation: "Wear a life jacket and check water conditions.",
       region: "Waterfront locations",
-      imageUrl: "https://images.unsplash.com/photo-1516569429446-48f13bd2ae73",
+      imageUrl: kayaking,
     },
   ];
 
@@ -187,6 +198,9 @@ const HomePage = () => {
                         ...styles.activityCard,
                         backgroundImage: `url(${activity.imageUrl})`,
                       }}
+                      onClick={() => (
+                        setpopup(true), setpopedUpActivity(activity)
+                      )}
                     >
                       <h3
                         style={{
@@ -205,6 +219,13 @@ const HomePage = () => {
               : "Search a location to view activities..."}
           </div>
         </div>
+        {popup && (
+          <PopUp
+            setPopUp={setpopup}
+            weatherData={weatherData}
+            popedUpActivity={popedUpActivity}
+          />
+        )}
       </div>
     </>
   );
