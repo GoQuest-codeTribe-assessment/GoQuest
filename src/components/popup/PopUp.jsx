@@ -6,6 +6,7 @@ import styles2 from "../Pages/homePageStyles";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../Firebase/firebaseApi";
 import { getAuth } from "firebase/auth";
+import { FaHeart } from "react-icons/fa";
 
 import { Search, Droplets, Wind, Thermometer, Sun, Cloud } from "lucide-react";
 
@@ -28,7 +29,10 @@ function PopUp({ setPopUp, weatherData, popedUpActivity }) {
       };
 
       try {
-        await setDoc(doc(db, "favorites", `${user.uid}_${popedUpActivity.id}`), favourite);
+        await setDoc(
+          doc(db, "favorites", `${user.uid}_${popedUpActivity.id}`),
+          favourite
+        );
         alert("You have successfully added this activity to your favorites!");
         setLoading(false);
         setPopUp(false);
@@ -134,7 +138,7 @@ function PopUp({ setPopUp, weatherData, popedUpActivity }) {
         </div>
 
         <ImCross className="closeModal" onClick={() => setPopUp(false)} />
-        <button onClick={addToFav}>Like this activity</button>
+        <FaHeart onClick={addToFav} className="fav">like activity</FaHeart>
       </div>
       {loading && (
         <div className="loader-cont">

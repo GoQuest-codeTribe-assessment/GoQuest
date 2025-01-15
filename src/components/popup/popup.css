@@ -46,3 +46,9 @@
   display: flex;
   gap: 20px;
 }
+
+.fav {
+  font-size: 2rem;
+  color: #5a956f;
+  cursor: pointer;
+}
