@@ -4,18 +4,12 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Navbar from "./components/nav/Nav";
 import HomePage from "./components/Pages/homePage";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { Router, Route, Routes, Navigate } from "react-router-dom";
 
 function App() {
   return (
     <>
       {/* Navbar to be consistent across all pages */}
-      <Router>
         {location.pathname !== "/login" &&
           location.pathname !== "/register" && <Navbar />}
         <Routes>
@@ -24,10 +18,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<HomePage />} />
         </Routes>
-      </Router>
     </>
   );
 }
 
 export default App;
-
