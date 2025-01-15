@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./popUp.css";
+import "./popup.css";
 import { ImCross } from "react-icons/im";
 import styles from "../weather/weatherCardStyles";
 import styles2 from "../Pages/homePageStyles";
