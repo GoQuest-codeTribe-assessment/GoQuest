@@ -23,6 +23,9 @@ const HomePage = () => {
   const [popedUpActivity, setpopedUpActivity] = useState(null);
   const [popup, setpopup] = useState(false);
 
+  console.log("Name of the location", weatherData?.city || "No city data available");
+
+
   const activities = [
     {
       id: 1,
@@ -157,7 +160,7 @@ const HomePage = () => {
           <div style={styles.mapSection}>
             <h2 style={styles.sectionTitle}>Map</h2>
             <div style={styles.mapPlaceholder}>
-              <Map lat={lat} lon={lon} />
+              <Map lat={lat} lon={lon} weatherData={weatherData} />
             </div>
           </div>
 
