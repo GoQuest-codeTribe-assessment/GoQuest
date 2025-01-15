@@ -16,6 +16,7 @@ const WeatherCard = ({
   const [error, setError] = useState(null);
   const [map] = useState(false);
 
+  console.log(searchQuery)
   // Fetch weather data when the search query changes
   // importing api calls from weatherApi.jsx game me problems hence i resorted to a useEffect
 
@@ -41,14 +42,15 @@ const WeatherCard = ({
         const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d7c757ee7b3a22b8f08a5822bcc1a414&units=${units}`;
         const forecastResponse = await fetch(forecastURL);
         const forecastData = await forecastResponse.json();
-        console.log(forecastData);
+        console.log("This is my data",forecastData);
         setWeatherData({
           condition: forecastData.list[0].weather[0].main,
           humidity: `${forecastData.list[0].main.humidity}%`,
           windSpeed: `${forecastData.list[0].wind.speed} m/s`,
           temperature: `${forecastData.list[0].main.temp}°C`,
+          city: `${forecastData.city.name}`
         });
-
+        
         // Extract 5-day forecast data
         const fiveDayForecast = forecastData.list
           .filter((_, index) => index % 8 === 0)
