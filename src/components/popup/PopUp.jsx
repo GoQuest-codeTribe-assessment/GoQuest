@@ -13,7 +13,6 @@ import { Search, Droplets, Wind, Thermometer, Sun, Cloud } from "lucide-react";
 function PopUp({ setPopUp, weatherData, popedUpActivity }) {
   const [loading, setLoading] = useState(false);
 
-
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -43,7 +42,7 @@ function PopUp({ setPopUp, weatherData, popedUpActivity }) {
         setPopUp(false);
       }
     } else {
-      alert("User not authenticated, room ID, or room details missing");
+      alert("User not authenticated");
       setLoading(false);
       setPopUp(false);
     }
@@ -135,12 +134,13 @@ function PopUp({ setPopUp, weatherData, popedUpActivity }) {
               {popedUpActivity.temperatureMin}°C -
               {popedUpActivity.temperatureMax}°C
             </div>
-            <FaHeart onClick={addToFav} className="fav">like activity</FaHeart>
+            <FaHeart onClick={addToFav} className="fav">
+              like activity
+            </FaHeart>
           </div>
         </div>
 
         <ImCross className="closeModal" onClick={() => setPopUp(false)} />
-       
       </div>
       {loading && (
         <div className="loader-cont">
