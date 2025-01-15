@@ -135,11 +135,12 @@ function PopUp({ setPopUp, weatherData, popedUpActivity }) {
               {popedUpActivity.temperatureMin}°C -
               {popedUpActivity.temperatureMax}°C
             </div>
+            <FaHeart onClick={addToFav} className="fav">like activity</FaHeart>
           </div>
         </div>
 
         <ImCross className="closeModal" onClick={() => setPopUp(false)} />
-        <FaHeart onClick={addToFav} className="fav">like activity</FaHeart>
+       
       </div>
       {loading && (
         <div className="loader-cont">
