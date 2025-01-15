@@ -27,7 +27,7 @@ const Map = ({ lat, lon }) => {
     <MapContainer
       center={[currentLat, currentLon]} // Center the map on the dynamic coordinates
       zoom={13}
-      style={{ height: "100%", width: "100%" }} // You can adjust the height and width here
+      style={{ height: "100%", width: "100%", zIndex: 0 }} // You can adjust the height and width here
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

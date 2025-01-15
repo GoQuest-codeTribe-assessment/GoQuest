@@ -3,6 +3,8 @@
   background-color: aqua;
   width: 60%;
   height: 100%;
+  z-index: 0;
+
 }
 
 @media (max-width: 768px) {

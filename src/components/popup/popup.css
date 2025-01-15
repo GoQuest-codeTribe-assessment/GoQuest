@@ -1,0 +1,48 @@
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 5;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 50;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+
+.modalContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f1;
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-width: 800px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+}
+
+.closeModal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 7px;
+  color: red;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.popUpCont {
+  display: flex;
+  gap: 20px;
+}

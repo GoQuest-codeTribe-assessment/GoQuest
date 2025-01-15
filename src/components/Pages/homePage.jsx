@@ -13,12 +13,15 @@ import snow from "../../assets/snow.jpg";
 import walking from "../../assets/walking.jpg";
 import rock from "../../assets/rock.jpg";
 import kayaking from "../../assets/kayaking.jpg";
+import PopUp from "../popup/PopUp";
 
 const HomePage = () => {
   const [lat, setLat] = useState(null);
   const [lon, setLon] = useState(null);
   const [forecastData, setForecastData] = useState([]);
   const [weatherData, setWeatherData] = useState(null);
+  const [popedUpActivity, setpopedUpActivity] = useState(null);
+  const [popup, setpopup] = useState(false);
 
   const activities = [
     {
@@ -192,6 +195,9 @@ const HomePage = () => {
                         ...styles.activityCard,
                         backgroundImage: `url(${activity.imageUrl})`,
                       }}
+                      onClick={() => (
+                        setpopup(true), setpopedUpActivity(activity)
+                      )}
                     >
                       <h3
                         style={{
@@ -210,6 +216,13 @@ const HomePage = () => {
               : "Search a location to view activities..."}
           </div>
         </div>
+        {popup && (
+          <PopUp
+            setPopUp={setpopup}
+            weatherData={weatherData}
+            popedUpActivity={popedUpActivity}
+          />
+        )}
       </div>
     </>
   );
