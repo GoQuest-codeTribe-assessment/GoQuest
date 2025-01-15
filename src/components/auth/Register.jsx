@@ -24,7 +24,7 @@ const Register = () => {
       const user = userCredential.user;
       //   console.log("user registered", user);
       setLoading(false);
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       setLoading(false);
       console.error(error);

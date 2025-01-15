@@ -76,6 +76,14 @@ const styles = {
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
   },
+  loginButton:{
+    width: '100px',
+    height: '40px',
+    borderRadius: '20px',
+    border: 'none', 
+    backgroundColor: '#5a956f',
+    color: 'white',
+  }
 };
 
 // Add hover effects

@@ -25,7 +25,7 @@ const Login = () => {
 
       //   console.log("user", userCredential.user);
       setLoading(false);
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       setLoading(false);
       if (error.code === "auth/wrong-password") {

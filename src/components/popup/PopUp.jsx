@@ -13,6 +13,7 @@ import { Search, Droplets, Wind, Thermometer, Sun, Cloud } from "lucide-react";
 function PopUp({ setPopUp, weatherData, popedUpActivity }) {
   const [loading, setLoading] = useState(false);
 
+
   const auth = getAuth();
   const user = auth.currentUser;
 
