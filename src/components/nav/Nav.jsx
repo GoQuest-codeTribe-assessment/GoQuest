@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { User } from 'lucide-react';
 import styles from './navstyles';
 import Logo from "../../assets/Logo.png"
+import ProfilePopup from '../User/Profile';
 
 const Navbar = () => {
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  // const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [profile,setProfile] = useState(false)
 
   const toggleUserMenu = () => {
-    setIsUserMenuOpen(!isUserMenuOpen);
+    setProfile(true);
   };
 
   return (
@@ -29,6 +31,13 @@ const Navbar = () => {
           <User size={24} color="#333" />
         </div>
       </div>
+      {
+          profile &&
+          <ProfilePopup
+          setProfile={setProfile}
+          />
+
+        }
     </header>
   );
 };
