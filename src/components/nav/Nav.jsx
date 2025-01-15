@@ -4,10 +4,12 @@ import styles from "./navstyles";
 import Logo from "../../assets/Logo.png";
 import ProfilePopup from "../User/Profile";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [profile, setProfile] = useState(false);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const auth = getAuth();
 
@@ -46,21 +48,21 @@ const Navbar = () => {
 
       {/* User Section */}
       <div style={styles.userSection}>
-        {user ? (
-          <div style={styles.userIcon} onClick={toggleUserMenu}>
-            <User size={24} color="#333" />
-            {/* <button onClick={handleLogout}>log out</button> */}
-          </div>
-        ) : (
-          <button
-            style={styles.loginButton}
-            onClick={() => {
-              window.location.href = "/login";
-            }}
-          >
-            Login
-          </button>
-        )}
+      {user ? (
+        <div style={styles.userIcon} onClick={toggleUserMenu}>
+          <User size={24} color="#333" />
+          {/* <button onClick={handleLogout}>log out</button> */}
+        </div>
+      ) : (
+        <button
+          style={styles.loginButton}
+          onClick={() => {
+            navigate("/login");  // Use navigate to go to /login
+          }}
+        >
+          Login
+        </button>
+      )}
       </div>
 
       {profile && user && <ProfilePopup setProfile={setProfile} />}
