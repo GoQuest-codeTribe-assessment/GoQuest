@@ -1,10 +1,59 @@
 import React from 'react';
-import { User, Heart, Mail } from 'lucide-react';
+import { useState,useEffect } from 'react';
+import { User, Heart, Mail, X } from 'lucide-react';
+import { auth } from '../../Firebase/firebaseApi';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
-const ProfilePopup = () => {
+const ProfilePopup = ({setProfile}) => {
+ const [userDetails, setUserDetails] = useState(null);
+ const [favorite,setFavorites] = useState()
+
+
+ useEffect(() => {
+    const user = auth.currentUser;
+    if (user) {
+      setUserDetails({
+        email: user.email || "Anonymous User",
+        displayName: user.displayName || "Anonymous User",
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        // Set user details
+        setUserDetails({
+          email: user.email || "Anonymous User",
+          displayName: user.displayName || "Anonymous User",
+        });
+
+        // Fetch favorites from Firestore
+        try {
+          const docRef = doc(db, "favorites", user.uid); // Assuming "favorites" is your collection
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            setFavorites(docSnap.data().items || []); // Assuming favorites are stored in an 'items' field
+          } else {
+            console.log("No favorites found for this user.");
+          }
+        } catch (error) {
+          console.error("Error fetching favorites:", error);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  console.log(favorite)
+
+
   const favorites = [
     "Photography",
-    "Mountain Hiking",
+    "Mountain Hiking", 
     "Japanese Cuisine"
   ];
 
@@ -23,6 +72,7 @@ const ProfilePopup = () => {
           justify-content: center;
           padding: 20px;
           animation: fadeIn 0.3s ease-out;
+          z-index: 999999;
         }
 
         @keyframes fadeIn {
@@ -35,14 +85,38 @@ const ProfilePopup = () => {
           border-radius: 20px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
           width: 100%;
-          max-width: 400px;
+          max-width: 700px;
           overflow: hidden;
           animation: slideUp 0.4s ease-out;
+          position: relative;
         }
 
         @keyframes slideUp {
           from { transform: translateY(30px); opacity: 0; }
           to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-button {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          background: rgba(255, 255, 255, 0.2);
+          border: none;
+          border-radius: 50%;
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          color: white;
+          z-index: 1;
+        }
+
+        .close-button:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: rotate(90deg);
         }
 
         .profile-header {
@@ -126,6 +200,14 @@ const ProfilePopup = () => {
       `}</style>
 
       <div className="profile-card">
+        <button 
+          className="close-button"
+          onClick={() => setProfile(false)}
+          aria-label="Close profile"
+        >
+          <X size={20} />
+        </button>
+
         <div className="profile-header">
           <div className="profile-image-container">
             <img 
@@ -142,11 +224,17 @@ const ProfilePopup = () => {
               <Mail size={18} />
               <span>Email</span>
             </label>
-            <input 
-              type="email" 
-              className="email-input"
-              placeholder="user@example.com"
-            />
+            {userDetails ? (
+                <input 
+                    type="email" 
+                    className="email-input"
+                    placeholder="user@example.com"
+                    value={userDetails.email || ""}
+                    readOnly
+                />
+                ) : (
+                <p>Loading user details...</p>
+                )}
           </div>
 
           <div className="input-group">

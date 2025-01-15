@@ -14,6 +14,7 @@ import walking from "../../assets/walking.jpg";
 import rock from "../../assets/rock.jpg";
 import kayaking from "../../assets/kayaking.jpg";
 import PopUp from "../popup/PopUp";
+import ProfilePopup from "../User/Profile";
 
 const HomePage = () => {
   const [lat, setLat] = useState(null);
@@ -22,6 +23,7 @@ const HomePage = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [popedUpActivity, setpopedUpActivity] = useState(null);
   const [popup, setpopup] = useState(false);
+  
 
   console.log("Name of the location", weatherData?.city || "No city data available");
 
@@ -226,6 +228,7 @@ const HomePage = () => {
             popedUpActivity={popedUpActivity}
           />
         )}
+       
       </div>
     </>
   );
